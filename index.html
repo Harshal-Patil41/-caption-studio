@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Plus+Jakarta+Sans:wght@500;700;800&amp;display=swap">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🖼️</text></svg>">
+<title>Image Caption Studio</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<canvas id="bg" aria-hidden="true"></canvas>
+<div class="top"><div>
+<h1>Image Caption Studio</h1>
+<p>Upload an image, analyse it with digital image processing, then generate a caption.</p>
+</div></div>
+
+<div class="wrap">
+<div class="steps" id="steps">
+<div class="step on"><i>1</i>Upload image</div>
+<div class="step"><i>2</i>Set preferences</div>
+<div class="step"><i>3</i>Get caption</div>
+</div>
+
+<div class="grid">
+<section class="card">
+<h2>📤 Image &amp; Style</h2>
+<div class="drop" id="drop" tabindex="0"><span>🖼️<br><b>Click to upload</b>, drag &amp; drop, or paste (Ctrl+V)<br><small>JPG, PNG, WebP, GIF</small></span></div>
+<input type="file" id="file" accept="image/*" hidden>
+<div class="meta"><span id="info"></span><button class="lnk" id="clear" hidden>Remove image</button></div>
+
+<label>Tone</label>
+<div class="seg" id="tone">
+<button class="on" data-v="descriptive and informative">Descriptive</button>
+<button data-v="formal and professional, suitable for a report or news article">Formal</button>
+<button data-v="witty and humorous">Humorous</button>
+<button data-v="social-media style with emojis and 5 relevant hashtags">Social media</button>
+<button data-v="poetic and expressive">Poetic</button>
+</div>
+
+<label>Length</label>
+<div class="seg" id="len">
+<button data-v="a single short line of under 10 words">Brief</button>
+<button class="on" data-v="1 to 2 sentences">Standard</button>
+<button data-v="a detailed paragraph of 3 to 4 sentences">Detailed</button>
+</div>
+
+<label for="lang">Language</label>
+<select id="lang">
+<option>English</option><option>Hindi</option><option>Marathi</option><option>Gujarati</option>
+<option>Tamil</option><option>Bengali</option><option>Spanish</option><option>French</option><option>German</option><option>Japanese</option>
+</select>
+
+<button class="go" id="go" disabled>Generate caption</button>
+<div class="err" id="err"></div>
+</section>
+
+<section class="card">
+<h2>✨ Your Caption</h2>
+<div class="out ph" id="out">Your caption will appear here once an image is uploaded.</div>
+<div class="meta"><span id="count"></span><span></span></div>
+<div class="row">
+<button id="copy" disabled>📋 Copy</button>
+<button id="regen" disabled>🔄 Regenerate</button>
+<button id="dl" disabled>⬇️ Save</button>
+</div>
+
+<div class="hist">
+<label>Recent captions</label>
+<ul id="hist"></ul>
+<div class="empty" id="hEmpty">No captions yet. Click an entry later to view it again.</div>
+</div>
+</section>
+</div>
+<section class="card dip" id="dip" hidden>
+<h2>🔬 Image Analysis <small>Digital Image Processing</small></h2>
+<div class="pipe">Upload → Resize &amp; normalize → Enhance → Analyse → Caption</div>
+<div class="stats" id="stats"></div>
+<div class="tiles" id="tiles"></div>
+<div class="ctl">
+<div><label for="bright">Brightness: <span id="bv">0</span></label><input type="range" id="bright" min="-100" max="100" value="0"></div>
+<div><label for="contrast">Contrast: <span id="cv">1.0</span>×</label><input type="range" id="contrast" min="50" max="200" value="100"></div>
+</div>
+<label class="chk"><input type="checkbox" id="useAdj"> Use the brightness/contrast-adjusted image for the caption</label>
+<label>Histograms</label>
+<div class="two">
+<div><canvas id="hRGB" width="512" height="260"></canvas><p>RGB histogram (red, green, blue)</p></div>
+<div><canvas id="hGray" width="512" height="260"></canvas><p>Grayscale before (white) vs after equalization (yellow)</p></div>
+</div>
+<label>Dominant colours (k-means clustering, k = 5)</label>
+<div class="pal" id="palette"></div>
+</section>
+<footer>Image Caption Studio &middot; Crafted for a college project demo</footer>
+</div>
+
+<script src="js/adapter.js"></script>
+<script src="js/main.js"></script>
+<script src="js/background.js"></script>
+<script src="js/dip.js"></script>
+</body>
+</html>

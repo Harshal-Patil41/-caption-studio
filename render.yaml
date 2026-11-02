@@ -1,0 +1,9 @@
+services:
+  - type: web
+    name: image-caption-studio
+    runtime: node
+    plan: free
+    startCommand: npm start
+    envVars:
+      - key: ANTHROPIC_API_KEY
+        sync: false

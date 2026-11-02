@@ -1,0 +1,8 @@
+{
+  "name": "image-caption-studio",
+  "version": "1.0.0",
+  "description": "Image caption generator with a digital image processing analysis panel",
+  "main": "server.js",
+  "scripts": { "start": "node server.js" },
+  "engines": { "node": ">=18" }
+}
